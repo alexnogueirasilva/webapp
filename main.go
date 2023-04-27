@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Running WebApp on port 3000")
+	fmt.Println("Running WebApp")
 
 	r := router.Generate()
 	log.Fatal(http.ListenAndServe(":3000", r))
