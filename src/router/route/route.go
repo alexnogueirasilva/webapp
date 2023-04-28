@@ -3,6 +3,7 @@ package route
 import (
 	"github.com/gorilla/mux"
 	"net/http"
+	"webapp/src/middlewares"
 )
 
 // Route represents all routes from the WebApp
@@ -17,9 +18,20 @@ type Route struct {
 func Setup(router *mux.Router) *mux.Router {
 	routes := routesLogin
 	routes = append(routes, routesUsers...)
+	routes = append(routes, routeHome)
 
 	for _, route := range routes {
-		router.HandleFunc(route.URI, route.Function).Methods(route.Method)
+
+		if route.RequestAuth {
+			router.HandleFunc(route.URI,
+				middlewares.Logger(middlewares.Authenticate(route.Function)),
+			).Methods(route.Method)
+			continue
+		} else {
+			router.HandleFunc(route.URI,
+				middlewares.Logger(route.Function),
+			).Methods(route.Method)
+		}
 	}
 
 	fileServe := http.FileServer(http.Dir("./assets/"))

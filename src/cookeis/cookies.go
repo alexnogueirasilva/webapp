@@ -33,3 +33,18 @@ func Save(w http.ResponseWriter, ID, token string) error {
 
 	return nil
 }
+
+// Read reads the cookie from the user's browser
+func Read(r *http.Request) (map[string]string, error) {
+	cookie, err := r.Cookie("data")
+	if err != nil {
+		return nil, err
+	}
+
+	var data map[string]string
+	if err = s.Decode("data", cookie.Value, &data); err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
