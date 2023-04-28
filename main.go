@@ -4,14 +4,18 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"webapp/src/config"
+	"webapp/src/cookeis"
 	"webapp/src/router"
 	"webapp/src/utils"
 )
 
 func main() {
+	config.Load()
+	cookeis.Setup()
 	utils.LoadTemplates()
-
-	fmt.Println("Running WebApp listening at port 3000...")
 	r := router.Generate()
-	log.Fatal(http.ListenAndServe(":3000", r))
+
+	fmt.Printf("Listening on port %d\n", config.Port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r))
 }

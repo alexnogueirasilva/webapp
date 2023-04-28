@@ -3,8 +3,10 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
+	"webapp/src/config"
 	"webapp/src/response"
 )
 
@@ -27,8 +29,9 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	url := fmt.Sprintf("%s/users", config.APIURL)
 	resp, err := http.Post(
-		"http://localhost:5000/users",
+		url,
 		"application/json",
 		bytes.NewBuffer(user),
 	)
