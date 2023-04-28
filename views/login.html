@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DevBook - Login</title>
+    <title>Tela de Login</title>
     <link rel="stylesheet" type="text/css" href="/assets/css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/image/devbook.png" type="image/x-icon">
 </head>
 <body>
-<div class="container-login">
-    <div>
-        <form action="devbook-form" id="login">
-            <span>Seja bem vindo ao devbook</span>
-            <div>
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
-            </div>
-            <div>
-                <label for="password">Senha</label>
-                <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
-            </div>
-            <div>
-                <input type="submit" value="Entrar">
-            </div>
-            <div>
-                <a href="devbook-form">Não tem uma conta? Cadastre-se</a>
-            </div>
+<div class="container">
+    <div class="login-container">
+        <h1>Bem-vindo ao DevBook!</h1>
+        <form>
+            <label for="username">Nome de usuário</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu e-mail de usuário">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha">
+            <button class="login-btn" type="submit">Entrar</button>
+            <a href="#">Esqueci minha senha</a>
         </form>
+        <div class="error-message">
+            <p>Nome de usuário ou senha incorretos. Tente novamente.</p>
+        </div>
+        <div class="register-icon">
+            <a href="/create-user"><img src="../assets/image/register-icon.png" alt="ícone de registro"></a>
+        </div>
     </div>
 </div>
 </body>
