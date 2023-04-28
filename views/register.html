@@ -10,21 +10,21 @@
 <div class="container">
     <div class="login-container">
         <h1>Criar uma conta no DevBook</h1>
-        <form>
+        <form id="register-user">
             <label for="name">Nome completo</label>
-            <input type="text" id="name" name="name" placeholder="Digite seu nome completo">
+            <input type="text" id="name" name="name" placeholder="Digite seu nome completo" required>
 
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="Digite seu endereço de e-mail">
+            <input type="email" id="email" name="email" placeholder="Digite seu endereço de e-mail" required>
 
             <label for="nickname">Nickname</label>
-            <input type="text" id="nickname" name="nickname" placeholder="Digite um nickname para sua conta">
+            <input type="text" id="nickname" name="nickname" placeholder="Digite um nickname para sua conta" required>
 
             <label for="password">Senha</label>
-            <input type="password" id="password" name="password" placeholder="Digite uma senha">
+            <input type="password" id="password" name="password" placeholder="Digite uma senha" required>
 
             <label for="confirm-password">Confirme sua senha</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Digite novamente sua senha">
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Digite novamente sua senha" required>
 
             <button class="login-btn" type="submit">Cadastrar</button>
         </form>
@@ -33,5 +33,7 @@
         </div>
     </div>
 </div>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/register.js"></script>
 </body>
 </html>
