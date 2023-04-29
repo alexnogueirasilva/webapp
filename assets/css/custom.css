@@ -1,0 +1,16 @@
+.custom-jumbotron {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    margin-bottom: 1rem;
+}
+
+.btn i.bi-hand-thumbs-up {
+    margin-right: 0.5rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}

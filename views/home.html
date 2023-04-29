@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBook</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom.css">
 </head>
 <body>
-<h1>Page Principal</h1>
+
+{{ template "header" . }}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <form id="form-publication">
+                <div class="form-group">
+                    <label for="title" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Insira o título da publicação">
+                </div>
+                <div class="form-group">
+                    <label for="content" class="form-label">Conteúdo</label>
+                    <textarea class="form-control" id="content" name="content" rows="5" placeholder="Insira o conteúdo da publicação"></textarea>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-light me-2">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Publicar</button>
+                </div>
+            </form>
+            <hr>
+            <div id="publications" class="mt-4">
+                {{ range . }}
+                <div class="jumbotron custom-jumbotron">
+                    <h5 class="card-title">{{ .Title }}</h5>
+                    <p class="card-text mt-1">{{ .Content}}</p>
+                    <hr class="my-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-hand-thumbs-up"></i> Curtir</button>
+                            <button type="button" class="btn btn-secondary btn-sm">Editar</button>
+                            <button type="button" class="btn btn-danger btn-sm">Apagar</button>
+                        </div>
+                        <small class="text-muted"><span class="mx-2">Autor</span><a href="#" class="text-decoration-none">{{ .AuthorNick }}</a></small>
+                        <small class="text-muted">Publicado em {{ .CreatedAt }}</small>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>
+    {{ template "script" . }}
 </body>
 </html>

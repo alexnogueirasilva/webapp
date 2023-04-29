@@ -1,10 +1,14 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"webapp/src/config"
+	"webapp/src/models"
 	"webapp/src/request"
+	"webapp/src/response"
 	"webapp/src/utils"
 )
 
@@ -21,8 +25,28 @@ func LoadUsersPage(w http.ResponseWriter, r *http.Request) {
 // LoadHomePage loads the home page
 func LoadHomePage(w http.ResponseWriter, r *http.Request) {
 	url := fmt.Sprintf("%s/publications", config.APIURL)
-	response, err := request.MakeRequestWithAuthentication(r, http.MethodGet, url, nil)
+	res, err := request.MakeRequestWithAuthentication(r, http.MethodGet, url, nil)
+	if err != nil {
+		response.JSON(w, http.StatusInternalServerError, response.Err{Err: err.Error()})
+		return
+	}
 
-	fmt.Println(response.StatusCode, err)
-	utils.ExecuteTemplate(w, "home.html", nil)
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(res.Body)
+
+	if res.StatusCode >= 400 {
+		response.HandleErrorResponses(w, res)
+		return
+	}
+
+	var publications []models.Publication
+	if err = json.NewDecoder(res.Body).Decode(&publications); err != nil {
+		response.JSON(w, http.StatusUnprocessableEntity, response.Err{Err: err.Error()})
+		return
+	}
+	utils.ExecuteTemplate(w, "home.html", publications)
 }
