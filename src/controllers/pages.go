@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"webapp/src/config"
+	"webapp/src/cookeis"
 	"webapp/src/models"
 	"webapp/src/request"
 	"webapp/src/response"
@@ -34,7 +36,7 @@ func LoadHomePage(w http.ResponseWriter, r *http.Request) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-
+			response.JSON(w, http.StatusInternalServerError, err)
 		}
 	}(res.Body)
 
@@ -48,5 +50,15 @@ func LoadHomePage(w http.ResponseWriter, r *http.Request) {
 		response.JSON(w, http.StatusUnprocessableEntity, response.Err{Err: err.Error()})
 		return
 	}
-	utils.ExecuteTemplate(w, "home.html", publications)
+
+	cookie, _ := cookeis.Read(r)
+	userID, _ := strconv.ParseUint(cookie["id"], 10, 64)
+
+	utils.ExecuteTemplate(w, "home.html", struct {
+		Publications []models.Publication
+		UserID       uint64
+	}{
+		Publications: publications,
+		UserID:       userID,
+	})
 }
