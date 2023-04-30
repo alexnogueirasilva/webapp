@@ -43,7 +43,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-
+			response.JSON(w, http.StatusInternalServerError, err)
 		}
 	}(res.Body)
 
